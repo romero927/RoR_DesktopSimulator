@@ -68,12 +68,25 @@ export default class extends Controller {
       // This was a click rather than a drag
       this.element.classList.add('clicked')
       setTimeout(() => this.element.classList.remove('clicked'), 200)
+      
+      // Handle single click to select
+      this.handleClick()
     }
 
     this.initialX = this.currentX
     this.initialY = this.currentY
     this.isDragging = false
     this.element.classList.remove('dragging')
+  }
+
+  handleClick() {
+    // Remove selection from other icons
+    document.querySelectorAll('.desktop-icon').forEach(icon => {
+      icon.classList.remove('selected')
+    })
+    
+    // Add selection to clicked icon
+    this.element.classList.add('selected')
   }
 
   setTranslate(xPos, yPos) {
