@@ -87,15 +87,8 @@ export default class extends Controller {
     
     // Add selection to clicked icon
     this.element.classList.add('selected')
-  }
-
-  setTranslate(xPos, yPos) {
-    requestAnimationFrame(() => {
-      this.element.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`
-    })
-  }
-
-  launchApp(event) {
+    
+    // Launch app on single click
     const appType = this.element.getAttribute("data-app-type")
     const title = this.element.querySelector("span").textContent
     
@@ -108,4 +101,11 @@ export default class extends Controller {
       }
     }
   }
+
+  setTranslate(xPos, yPos) {
+    requestAnimationFrame(() => {
+      this.element.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`
+    })
+  }
+
 }
