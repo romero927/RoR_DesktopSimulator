@@ -9,6 +9,11 @@ A web-based desktop environment simulator built with Ruby on Rails and Stimulus.
 - Terminal emulator
 - Start menu
 
+
+This is merely a proof of concept and would require addditional work tto get it fully up and running. This was written through a combination of manual coding and using the Cline plugin for VS Code connected to Anthropic's Claude 3.5 Sonnet API.
+
+Try this at : https://kgromero-desktopsimulator.fly.dev/
+
 ## Requirements
 
 - Ruby 3.3.0
