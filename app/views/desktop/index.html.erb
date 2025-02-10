@@ -1,0 +1,69 @@
+<div class="desktop">
+  <div class="desktop-icons">
+    <div class="desktop-icon" data-controller="draggable" data-action="dblclick->draggable#launchApp" data-app-type="documents">
+      <i class="fas fa-folder fa-2x"></i>
+      <span>Documents</span>
+    </div>
+    <div class="desktop-icon" data-controller="draggable" data-action="dblclick->draggable#launchApp" data-app-type="pictures">
+      <i class="fas fa-folder fa-2x"></i>
+      <span>Pictures</span>
+    </div>
+  </div>
+
+  <div class="taskbar" data-controller="start-menu">
+    <div class="start-button" data-action="click->start-menu#toggle">
+      <i class="fas fa-th"></i>
+      <span>Start</span>
+    </div>
+    <div class="start-menu" data-start-menu-target="menu">
+      <div class="start-menu-header">
+        <input type="text" class="start-menu-search" placeholder="Search apps..." data-action="input->start-menu#search">
+      </div>
+      <div class="start-menu-items">
+        <a href="#" class="start-menu-item" data-app-type="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="documents">
+          <i class="fas fa-folder"></i>
+          <span>Files</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="pictures">
+          <i class="fas fa-image"></i>
+          <span>Gallery</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="calculator">
+          <i class="fas fa-calculator"></i>
+          <span>Calculator</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="terminal">
+          <i class="fas fa-terminal"></i>
+          <span>Terminal</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="notes">
+          <i class="fas fa-sticky-note"></i>
+          <span>Notes</span>
+        </a>
+        <a href="#" class="start-menu-item" data-app-type="calendar">
+          <i class="fas fa-calendar"></i>
+          <span>Calendar</span>
+        </a>
+      </div>
+    </div>
+    <div class="running-apps">
+      <!-- Active applications will appear here -->
+    </div>
+    <div class="system-tray">
+      <i class="fas fa-wifi"></i>
+      <i class="fas fa-volume-up"></i>
+      <i class="fas fa-battery-full"></i>
+      <span class="time" data-controller="clock">
+        <%= Time.current.strftime("%I:%M %p") %>
+      </span>
+    </div>
+  </div>
+
+  <div class="windows-container">
+    <!-- Application windows will be rendered here -->
+  </div>
+</div>

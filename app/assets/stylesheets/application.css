@@ -1,0 +1,627 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into maintainability.
+ */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Desktop styles */
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #0078D4 0%, #005A9E 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.05) 75%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+  background-size: 100% 100%, 60px 60px, 60px 60px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Desktop icons */
+.desktop-icons {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 80px);
+  gap: 20px;
+}
+
+.desktop-icon {
+  width: 80px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.desktop-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.desktop-icon.dragging {
+  opacity: 0.8;
+  transform: scale(1.05);
+  z-index: 1000;
+}
+
+.desktop-icon.clicked {
+  transform: scale(0.95);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.desktop-icon i {
+  color: #fff;
+  margin-bottom: 8px;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.desktop-icon span {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 1000;
+}
+
+.start-button {
+  padding: 0 15px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.start-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Start Menu */
+.start-menu {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 300px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+  display: none;
+  z-index: 1100;
+  animation: slideUp 0.2s ease-out;
+}
+
+.start-menu.active {
+  display: block;
+}
+
+.start-menu-header {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.start-menu-search {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.start-menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.start-menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.start-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.start-menu-item i {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.start-menu-item span {
+  font-size: 12px;
+  text-align: center;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.start-button i {
+  font-size: 14px;
+}
+
+.running-apps {
+  flex: 1;
+  display: flex;
+  margin: 0 10px;
+}
+
+.system-tray {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 13px;
+  padding: 0 10px;
+}
+
+.system-tray i {
+  font-size: 14px;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.system-tray i:hover {
+  opacity: 1;
+}
+
+/* Windows Container */
+.windows-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  z-index: 100;
+}
+
+.window {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 200px;
+  pointer-events: auto;
+}
+
+.window-header {
+  height: 32px;
+  background: #f0f0f0;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  cursor: move;
+}
+
+.window-content {
+  flex: 1;
+  padding: 10px;
+  overflow: auto;
+}
+
+/* File Explorer */
+.file-explorer {
+  height: 100%;
+}
+
+.file-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.file-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.file-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.file-item i {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  background-color: #eee;
+}
+
+.gallery-item i {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+/* Calculator */
+.calculator {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.calc-display {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  text-align: right;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.calc-buttons button {
+  padding: 15px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+.calc-buttons button:hover {
+  background: #f5f5f5;
+}
+
+/* Terminal */
+.terminal-window {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  padding: 10px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  height: 300px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.terminal-output {
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.terminal-input {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.terminal-input .prompt {
+  margin-right: 10px;
+  color: #0f0;
+  user-select: none;
+}
+
+.terminal-input input {
+  background: transparent;
+  border: none;
+  color: #f0f0f0;
+  flex: 1;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.terminal-input input:focus {
+  outline: none;
+}
+
+.command-line {
+  color: #f0f0f0;
+  margin: 4px 0;
+}
+
+.command-line .prompt {
+  color: #0f0;
+  margin-right: 10px;
+}
+
+.response {
+  color: #a0a0a0;
+  margin: 4px 0 8px 20px;
+  white-space: pre-wrap;
+}
+
+/* Terminal scrollbar */
+.terminal-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-window::-webkit-scrollbar-track {
+  background: #2e2e2e;
+}
+
+.terminal-window::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+.terminal-window::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Notes */
+.notes-app {
+  height: 100%;
+  padding: 10px;
+}
+
+.notes-content {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+  font-size: 14px;
+}
+
+/* Calendar */
+.calendar-app {
+  padding: 15px;
+  user-select: none;
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.calendar-nav h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.calendar-nav-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #666;
+}
+
+.calendar-nav-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.calendar-day {
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #666;
+}
+
+.calendar-date {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.calendar-date:hover {
+  background: #f0f0f0;
+}
+
+.calendar-date.current-day {
+  background: #e3f2fd;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.calendar-date.selected {
+  background: #1976d2;
+  color: white;
+}
+
+.calendar-date.selected:hover {
+  background: #1565c0;
+}
+
+/* Window Controls */
+.window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-title {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.window-close {
+  background-color: #ff5f56;
+}
+
+.window-minimize {
+  background-color: #ffbd2e;
+}
+
+.window-maximize {
+  background-color: #27c93f;
+}
+
+.window-close:hover {
+  background-color: #ff4444;
+}
+
+.window-minimize:hover {
+  background-color: #ffb01f;
+}
+
+.window-maximize:hover {
+  background-color: #1fb959;
+}
+
+.window.minimized {
+  height: 30px !important;
+  overflow: hidden;
+}
+
+.window.maximized {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 40px !important;
+  width: 100% !important;
+  height: calc(100vh - 40px) !important;
+  transform: none !important;
+  border-radius: 0;
+}
+
+.window-close {
+  background: #ff5f57;
+}
+
+.window-minimize {
+  background: #ffbd2e;
+}
+
+.window-maximize {
+  background: #28c940;
+}
