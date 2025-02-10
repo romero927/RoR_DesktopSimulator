@@ -33,10 +33,8 @@ export default class extends Controller {
     this.initialX = e.clientX - this.xOffset
     this.initialY = e.clientY - this.yOffset
     
-    if (e.target.closest('.desktop-icon')) {
-      this.isDragging = true
-      this.element.classList.add('dragging')
-    }
+    this.isDragging = true
+    this.element.classList.add('dragging')
   }
 
   drag(e) {
