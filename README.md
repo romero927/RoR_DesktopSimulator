@@ -2,7 +2,121 @@
 
 A sophisticated web-based desktop environment simulator built with Ruby on Rails and Stimulus.js. This application recreates a modern desktop interface in the browser, featuring a comprehensive window management system, application framework, and UI components.
 
+This project was developed through a combination of manual development and AI assistance using the Cline VS Code extension connected to Anthropic's Claude 3.5 Sonnet API. This collaborative approach enabled rapid development while maintaining code quality and architectural consistency.
+
 Live Demo: https://kgromero-desktopsimulator.fly.dev/
+
+## Quick Start Guide
+
+Get up and running in minutes:
+
+1. **One-Command Setup** (requires Ruby, Node.js, and PostgreSQL):
+```bash
+git clone https://github.com/yourusername/RoR_DesktopSimulator.git && \
+cd RoR_DesktopSimulator && \
+bundle install && \
+yarn install && \
+bin/rails db:create db:migrate && \
+bin/dev
+```
+
+2. **Common Customizations**
+
+Add a new application in 3 steps:
+```javascript
+// 1. Create app/javascript/controllers/myapp_controller.js
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  connect() {
+    this.element.innerHTML = `
+      <div class="my-app-content">
+        <h1>My App</h1>
+        <button data-action="click->myapp#doSomething">Click Me</button>
+      </div>
+    `
+  }
+  
+  doSomething() {
+    console.log("Button clicked!")
+  }
+}
+
+// 2. Add to app/views/desktop/index.html.erb in the start-menu-items div:
+<a href="#" class="start-menu-item" data-app-type="myapp">
+  <i class="fas fa-star"></i>
+  <span>My App</span>
+</a>
+
+// 3. Add to app/assets/stylesheets/application.css:
+.my-app-content {
+  padding: 20px;
+}
+```
+
+Change the theme colors:
+```css
+/* In app/assets/stylesheets/application.css */
+.desktop {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); /* New background */
+}
+
+.taskbar {
+  background: rgba(44, 62, 80, 0.8); /* New taskbar color */
+}
+```
+
+3. **Common Use Cases**
+
+Create a document viewer:
+```javascript
+// app/javascript/controllers/document_viewer_controller.js
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  static targets = ["content"]
+  
+  connect() {
+    this.element.innerHTML = `
+      <div class="document-viewer">
+        <div class="toolbar">
+          <button data-action="click->document-viewer#zoomIn">Zoom In</button>
+          <button data-action="click->document-viewer#zoomOut">Zoom Out</button>
+        </div>
+        <div data-document-viewer-target="content" class="viewer-content">
+          <!-- Content here -->
+        </div>
+      </div>
+    `
+  }
+  
+  zoomIn() {
+    const content = this.contentTarget
+    const currentScale = parseFloat(content.style.transform.replace('scale(', '')) || 1
+    content.style.transform = `scale(${currentScale + 0.1})`
+  }
+  
+  zoomOut() {
+    const content = this.contentTarget
+    const currentScale = parseFloat(content.style.transform.replace('scale(', '')) || 1
+    content.style.transform = `scale(${currentScale - 0.1})`
+  }
+}
+```
+
+4. **Troubleshooting**
+
+Common issues and solutions:
+
+- **Windows not draggable**: Check if `pointer-events: none` is properly set on `.windows-container` and `pointer-events: auto` on `.window`
+- **Z-index issues**: Ensure proper layering:
+  ```css
+  .desktop-icons { z-index: 50; }
+  .windows-container { z-index: 100; }
+  .window { z-index: 200; }
+  .taskbar { z-index: 1000; }
+  ```
+- **Start menu not showing**: Verify the click handler in `start_menu_controller.js` and check if the menu has `display: none` when inactive
 
 ## Features
 
