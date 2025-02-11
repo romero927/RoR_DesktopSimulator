@@ -139,26 +139,6 @@ Common issues and solutions:
 - Yarn 1.22.22
 - PostgreSQL
 
-## Local Development
-
-1. Clone the repository
-2. Install dependencies:
-```bash
-bundle install
-yarn install
-```
-
-3. Setup the database:
-```bash
-bin/rails db:create db:migrate
-```
-
-4. Start the development server:
-```bash
-bin/dev
-```
-
-5. Visit http://localhost:3000 in your browser
 
 ## Code Structure
 
@@ -404,4 +384,4 @@ fly deploy
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](LICENSE).
